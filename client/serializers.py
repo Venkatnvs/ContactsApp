@@ -2,14 +2,14 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(max_length=100, min_length=0, write_only=True)
-    email = serializers.EmailField(max_length=100, min_length=5)
-    first_name = serializers.CharField(max_length=100, min_length=1)
+    password = serializers.CharField(max_length=100, min_length=6, write_only=True)
+    email = serializers.EmailField(max_length=100)
+    first_name = serializers.CharField(max_length=100, min_length=2)
     last_name = serializers.CharField(max_length=100, min_length=1)
 
     class Meta:
         model = User
-        fields = ['username','first_name','last_name','email','password']
+        fields = ['id','username','first_name','last_name','email','password']
 
     def validate(self, attrs):
         email = attrs.get('email','')
