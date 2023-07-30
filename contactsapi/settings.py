@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +26,7 @@ SECRET_KEY = 'p2w)_k!#@$c*u*%m%pc-gi(bzjxwcn#vf^7kg7sz*=3zeb!e@6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["venkatnvs.pythonanywhere.com"]
 
 
 # Application definition
@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
     'drf_yasg',
     'client',
     'contacts',
@@ -47,12 +49,16 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+ALLOWED_HOSTS=['*']
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'contactsapi.urls'
 
@@ -80,8 +86,11 @@ WSGI_APPLICATION = 'contactsapi.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'venkatnvs$contactsapp',
+        'USER': 'venkatnvs',
+        'PASSWORD':'nvscontactapp2005',
+        'HOST':'venkatnvs.mysql.pythonanywhere-services.com',
     }
 }
 
@@ -119,12 +128,13 @@ USE_L10N = True
 USE_TZ = True
 
 #JWT
-JWT_SECRET_KEY = config('JWT_SECRET_KEY')
+JWT_SECRET_KEY = 'Authorization___Authorization!@#$%^&*JWT_SECRET_KEYJWT_SECRET_KEYJWT_SECRET_KEYp2w)_k!#@$c*u*%m%pc-gi(bzjxwcn#vf^7kg7sz*=3zeb!e@6django.contrib.auth.password_validation.NumericPasswordValidatorJWT_SECRET_KEYJWT_SECRET_KEYJWT_SECRET_KEY!@#$%^&*Authorization___Authorization'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 
 REST_FRAMEWORK = {

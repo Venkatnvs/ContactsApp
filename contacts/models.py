@@ -12,3 +12,14 @@ class Contacts(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.phone_number}--{self.owner}"
+
+    @property
+    def owner_name(self):
+        return self.owner.username
+
+    @property
+    def owner_email(self):
+        return self.owner.email
